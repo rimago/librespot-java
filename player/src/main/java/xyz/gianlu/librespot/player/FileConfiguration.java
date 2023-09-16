@@ -374,7 +374,7 @@ public final class FileConfiguration {
                 .setDeviceId(deviceId())
                 .setListenPort(config.get("zeroconf.listenPort"));
 
-        if (config.get("zeroconf.listenAll")) builder.setListenAll(true);
+        if ((boolean) config.get("zeroconf.listenAll")) builder.setListenAll(true);
         else builder.setListenInterfaces(getStringArray("zeroconf.interfaces", ','));
 
         return builder;

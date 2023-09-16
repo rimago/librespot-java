@@ -192,6 +192,10 @@ public class StateWrapper implements DeviceStateHandler.Listener, DealerClient.M
 
         if (old != isShufflingContext()) tracksKeeper.toggleShuffle(isShufflingContext());
     }
+    
+    void reverseTrackOrder() {
+    	tracksKeeper.reverseOrder();
+    }
 
     private boolean isRepeatingContext() {
         return state.getOptions().getRepeatingContext();
@@ -925,7 +929,23 @@ public class StateWrapper implements DeviceStateHandler.Listener, DealerClient.M
             checkComplete();
         }
 
-        private void updateTrackCount() {
+        public void reverseOrder() {
+        	if (!cannotLoadMore) {
+                if (loadAllTracks()) {
+                    LOGGER.trace("Loaded all tracks before reversing.");
+                } else {
+                    LOGGER.error("Cannot reverse context!");
+                    return;
+                }
+            }
+        	
+        	Collections.reverse(tracks);
+        	LOGGER.trace("Reversed {} items.", tracks.size());
+
+            setCurrentTrackIndex(0);
+		}
+
+		private void updateTrackCount() {
             if (context.isFinite())
                 state.putContextMetadata("track_count", String.valueOf(tracks.size() + queue.size()));
             else

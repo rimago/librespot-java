@@ -16,19 +16,37 @@
 
 package xyz.gianlu.librespot.player;
 
-import com.google.gson.JsonObject;
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.spotify.context.ContextTrackOuterClass.ContextTrack;
-import com.spotify.metadata.Metadata;
-import com.spotify.transfer.TransferStateOuterClass;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.gson.JsonObject;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.spotify.context.ContextTrackOuterClass.ContextTrack;
+import com.spotify.metadata.Metadata;
+import com.spotify.transfer.TransferStateOuterClass;
+
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import xyz.gianlu.librespot.audio.AbsChunkedInputStream;
 import xyz.gianlu.librespot.audio.MetadataWrapper;
 import xyz.gianlu.librespot.audio.PlayableContentFeeder;
@@ -51,11 +69,6 @@ import xyz.gianlu.librespot.player.mixing.AudioSink;
 import xyz.gianlu.librespot.player.playback.PlayerSession;
 import xyz.gianlu.librespot.player.state.DeviceStateHandler;
 import xyz.gianlu.librespot.player.state.DeviceStateHandler.PlayCommandHelper;
-
-import java.io.Closeable;
-import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.*;
 
 /**
  * @author Gianlu
@@ -266,6 +279,10 @@ public class Player implements Closeable {
             LOGGER.error("Cannot play context!", ex);
             panicState(null);
         }
+    }
+    
+    public void reverseTrackOrder() {
+    	state.reverseTrackOrder();
     }
 
     public void addToQueue(@NotNull String uri) {
