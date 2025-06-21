@@ -402,6 +402,9 @@ public final class FileConfiguration {
             case STORED:
                 builder.stored();
                 break;
+            case OAUTH:
+                builder.oauth();
+                break;
             case ZEROCONF:
             default:
                 throw new IllegalArgumentException(authStrategy().name());
@@ -439,6 +442,7 @@ public final class FileConfiguration {
                 .setAutoplayEnabled(config.get("player.autoplayEnabled"))
                 .setCrossfadeDuration(config.get("player.crossfadeDuration"))
                 .setEnableNormalisation(config.get("player.enableNormalisation"))
+                .setUseAlbumGain(config.get("player.useAlbumGain"))
                 .setInitialVolume(config.get("player.initialVolume"))
                 .setLogAvailableMixers(config.get("player.logAvailableMixers"))
                 .setMetadataPipe(metadataPipe())
@@ -457,7 +461,7 @@ public final class FileConfiguration {
     }
 
     public enum AuthStrategy {
-        FACEBOOK, BLOB, USER_PASS, ZEROCONF, STORED
+        FACEBOOK, BLOB, USER_PASS, ZEROCONF, STORED, OAUTH
     }
 
     private final static class PropertiesFormat implements ConfigFormat<Config> {
