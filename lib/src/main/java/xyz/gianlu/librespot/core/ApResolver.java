@@ -29,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +39,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author Gianlu
  */
 public final class ApResolver {
-    private static final String BASE_URL = "http://apresolve.spotify.com/";
+    private static final String BASE_URL = "https://apresolve.spotify.com/";
     private static final Logger LOGGER = LoggerFactory.getLogger(ApResolver.class);
 
     private final OkHttpClient client;
@@ -128,7 +127,8 @@ public final class ApResolver {
 
     @NotNull
     public String getRandomSpclient() {
-        return getRandomOf("spclient");
+        return "spclient.wg.spotify.com:443";
+        //return getRandomOf("spclient");
     }
 
     @NotNull
