@@ -92,12 +92,12 @@
         <dependency>
             <groupId>xyz.gianlu.librespot</groupId>
             <artifactId>librespot-lib</artifactId>
-            <version>1.6.5</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>xyz.gianlu.librespot</groupId>
             <artifactId>librespot-sink-api</artifactId>
-            <version>1.6.5</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- Logging -->
@@ -140,14 +140,14 @@
         <dependency>
             <groupId>xyz.gianlu.librespot</groupId>
             <artifactId>librespot-sink</artifactId>
-            <version>1.6.5</version>
+            <version>${project.version}</version>
         </dependency>
 
         <!-- DACP -->
         <dependency>
             <groupId>xyz.gianlu.librespot</groupId>
             <artifactId>librespot-dacp</artifactId>
-            <version>1.6.5</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
